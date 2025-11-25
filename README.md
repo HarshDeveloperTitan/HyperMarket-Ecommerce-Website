@@ -1,5 +1,5 @@
 # MERN E-Commerce Website 
-Currently, the **frontend (UI)** is developed using **React, Redux, and Tailwind CSS**, while the **backend** (Node.js, Express, MongoDB) will be integrated soon.
+Currently, the **frontend (UI)** is developed using **React, Redux, and Tailwind CSS**, while the **backend** (Node.js, Express, MongoDB) will be integrated soon followed by deployment.
 This project aims to create a **modern, responsive, and scalable e-commerce platform** where users can browse products, manage their cart, and proceed to checkout.  
 It’s a full-stack project designed to demonstrate both **frontend and backend** development capabilities using the **MERN stack**.
 
