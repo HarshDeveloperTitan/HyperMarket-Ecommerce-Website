@@ -6,15 +6,23 @@ import Footer from "./components/Footer.jsx";
 import Cart from "./components/Cart.jsx";
 import LandingPage from "./components/LandingPage";
 import NewNavbar from "./components/NewNavbar.jsx";
+import Contact from "./components/Contact.jsx";
+import Login from "./components/Login.jsx";
+import Checkout from "./components/Checkout";
+import NotFound from "./components/NotFound.jsx";
 const App = () => {
   return (
     <>
       {/* <Navbar /> */}
-      <NewNavbar /> 
+      <NewNavbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/products" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

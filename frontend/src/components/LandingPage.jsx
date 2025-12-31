@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
       <h1 className="text-4xl font-bold text-gray-800 mb-6">Welcome to HyperMarket</h1>
       <p className="text-lg text-gray-600 mb-8">Your one-stop shop for fashion, electronics, groceries, and more.</p>
       <Link 

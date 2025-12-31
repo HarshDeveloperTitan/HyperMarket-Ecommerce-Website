@@ -4,18 +4,23 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 import { Provider } from "react-redux";
-import store from "./redux/store.js";
+import store, { persistor } from "./redux/store.js";
 import { PersistGate } from "redux-persist/integration/react";
-import { persistor } from "./redux/store.js";
-
-
+import { SearchProvider } from "./context/SearchContext.jsx";
+import { AuthProvider } from "./context/AuthContext"; // ← Imported
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+    <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+      <React.StrictMode>
+        <AuthProvider>  {/* ← ADD THIS */}
+          <SearchProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </SearchProvider>
+        </AuthProvider>  {/* ← AND CLOSE IT */}
+      </React.StrictMode>
+    </PersistGate>
   </Provider>
 );
