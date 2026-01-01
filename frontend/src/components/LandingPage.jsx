@@ -8,7 +8,7 @@ const LandingPage = () => {
       <p className="text-lg text-gray-600 mb-8">Your one-stop shop for fashion, electronics, groceries, and more.</p>
       <Link 
         to="/products" 
-        className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition"
+        className="px-6 py-3 bg-[#a7c957] hover:bg-[#8fb848] text-white rounded-lg shadow transition"
       >
         Start Shopping
       </Link>

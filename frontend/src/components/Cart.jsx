@@ -44,7 +44,7 @@ const Cart = () => {
             <p className="text-lg text-gray-600 mt-4 mb-6">Your cart is empty.</p>
             <Link
               to="/products"
-              className="inline-block px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition"
+              className="inline-block px-6 py-3 bg-[#a7c957] hover:bg-[#8fb848] text-white rounded-lg shadow transition"
             >
               Start Shopping
             </Link>

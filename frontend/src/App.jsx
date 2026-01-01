@@ -10,20 +10,27 @@ import Contact from "./components/Contact.jsx";
 import Login from "./components/Login.jsx";
 import Checkout from "./components/Checkout";
 import NotFound from "./components/NotFound.jsx";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+
 const App = () => {
   return (
     <>
       {/* <Navbar /> */}
       <NewNavbar />
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/products" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/checkout" element={<Checkout />} />
+        </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
+
       <Footer />
     </>
   );

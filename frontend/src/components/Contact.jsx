@@ -59,7 +59,7 @@ export default function Contact() {
 
           <button
             type="submit"
-            className="bg-[#0d78f2] text-white px-6 py-2 rounded-md hover:bg-[#1b67f4] transition-all duration-200 shadow-sm cursor-pointer"
+            className="bg-[#a7c957] hover:bg-[#8fb848] text-white px-6 py-2 rounded-md  transition-all duration-200 shadow-sm cursor-pointer"
           >
             Send
           </button>

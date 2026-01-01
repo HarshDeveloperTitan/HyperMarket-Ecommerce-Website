@@ -1,15 +1,26 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useSearch } from "../context/SearchContext.jsx";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const { search, setSearch } = useSearch();
 
-  // Define the search input inline — stable, no re-creation issues
+  const { search, setSearch } = useSearch();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    setIsUserMenuOpen(false);
+    navigate("/login");
+  };
+
   const renderSearchInput = () => (
     <div className="relative">
       <input
@@ -21,11 +32,10 @@ function Navbar() {
         autoComplete="off"
       />
       <svg
-        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none"
+        className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
-        aria-hidden="true"
       >
         <path
           strokeLinecap="round"
@@ -55,9 +65,11 @@ function Navbar() {
             <Link to="/" className="hover:text-blue-600 transition">
               Home
             </Link>
+
             <Link to="/products" className="hover:text-blue-600 transition">
               Products
             </Link>
+
             <Link
               to="/cart"
               className="relative hover:text-blue-600 transition"
@@ -69,22 +81,72 @@ function Navbar() {
                 </span>
               )}
             </Link>
+
             <Link to="/contact" className="hover:text-blue-600 transition">
               Contact
             </Link>
-            <Link
-              to="/login"
-              className="hover:text-blue-600 font-semibold transition"
-            >
-              Login
-            </Link>
+
+            {/* Account Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                className="flex items-center gap-1 hover:text-blue-600 font-semibold transition"
+              >
+                {user && user.username ? user.username : "Account"}
+                <span className="text-sm">▾</span>
+              </button>
+
+              {isUserMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-50">
+                  {user ? (
+                    <>
+                      <div className="px-4 py-2 text-sm text-gray-700 border-b">
+                        Welcome, {user.username}
+                      </div>
+
+                      <Link
+                        to="/profile"
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Your Profile
+                      </Link>
+
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Login
+                      </Link>
+
+                      <Link
+                        to="/signup"
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Signup
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-800 focus:outline-none"
+            className="md:hidden text-gray-800"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
           >
             {isOpen ? (
               <span className="text-2xl">✖</span>
@@ -98,46 +160,40 @@ function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden px-4 pt-3 pb-5 space-y-4 bg-gray-50 border-t">
-          {/* Mobile Search */}
           {renderSearchInput()}
 
-          <Link
-            to="/"
-            className="block py-2 hover:text-blue-600 transition"
-            onClick={() => setIsOpen(false)}
-          >
+          <Link to="/" onClick={() => setIsOpen(false)} className="block py-2">
             Home
           </Link>
+
           <Link
             to="/products"
-            className="block py-2 hover:text-blue-600 transition"
             onClick={() => setIsOpen(false)}
+            className="block py-2"
           >
             Products
           </Link>
+
           <Link
             to="/cart"
-            className="block py-2 hover:text-blue-600 transition relative"
             onClick={() => setIsOpen(false)}
+            className="block py-2"
           >
             Cart
-            {cartCount > 0 && (
-              <span className="absolute top-1/2 -translate-y-1/2 left-16 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                {cartCount}
-              </span>
-            )}
           </Link>
+
           <Link
             to="/contact"
-            className="block py-2 hover:text-blue-600 transition"
             onClick={() => setIsOpen(false)}
+            className="block py-2"
           >
             Contact
           </Link>
+
           <Link
             to="/login"
-            className="block py-2 hover:text-blue-600 font-semibold transition"
             onClick={() => setIsOpen(false)}
+            className="block py-2 font-semibold"
           >
             Login
           </Link>
